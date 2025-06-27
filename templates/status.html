@@ -1,75 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Solo HUD</title>
+  <meta charset="UTF-8" />
+  <title>Solo Leveling HUD</title>
   <style>
-    body {
-      background-color: #111;
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    h1 {
-      padding: 20px;
-      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
-      margin-bottom: 20px;
-      font-size: 2.5em;
-      border-bottom: 2px solid #333;
-    }
-
-    .container {
+    body {
+      background: linear-gradient(to right, #000000, #0d0d0d);
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+      background: linear-gradient(to right, #00ffff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hud-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 800px;
     }
 
     .rank-box {
-      background: linear-gradient(145deg, #222, #000);
+      background: rgba(255, 215, 0, 0.1);
       border: 2px solid gold;
-      padding: 20px;
+      padding: 25px;
       border-radius: 15px;
-      margin: 30px auto;
+      margin-bottom: 25px;
       text-align: center;
-      width: 80%;
-      box-shadow: 0 0 15px gold;
+      box-shadow: 0 0 25px gold;
     }
 
     .rank-title {
-      display: block;
-      font-size: 1.5em;
-      color: gold;
+      font-size: 1.8rem;
       font-weight: bold;
-      margin-bottom: 10px;
+      color: gold;
       text-transform: uppercase;
+      margin-bottom: 10px;
     }
 
     .rank-value {
-      font-size: 3em;
+      font-size: 3.5rem;
       font-weight: bold;
-      color: white;
+      color: #fff;
     }
 
     .stat-box {
-      background: #1a1a1a;
-      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 10px;
-      margin: 10px;
-      width: 80%;
-      max-width: 400px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      padding: 15px 20px;
+      margin: 12px 0;
       display: flex;
       justify-content: space-between;
-      font-size: 1.2em;
+      font-size: 1.2rem;
+      border-left: 4px solid #00ffcc;
+      box-shadow: 0 0 10px #00ffcc88;
     }
 
     .stat-name {
+      color: #ccc;
       font-weight: bold;
-      color: #aaa;
     }
 
     .stat-value {
@@ -77,45 +85,52 @@
     }
 
     form {
-      margin-top: 30px;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     textarea {
-      width: 90%;
-      height: 200px;
-      background: #222;
-      color: #fff;
-      border: 1px solid #555;
-      border-radius: 8px;
-      padding: 10px;
+      width: 100%;
+      max-width: 800px;
+      height: 220px;
+      background: #111;
+      color: #0f0;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 15px;
+      font-family: monospace;
       font-size: 1em;
+      margin-bottom: 15px;
     }
 
     button {
-      margin-top: 10px;
-      padding: 10px 20px;
+      padding: 12px 25px;
       font-size: 1em;
-      background-color: gold;
-      color: black;
+      background-color: #00ffcc;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #000;
       cursor: pointer;
+      box-shadow: 0 0 10px #00ffcc88;
     }
 
     button:hover {
-      background-color: orange;
+      background-color: #00ffaa;
     }
   </style>
 </head>
 <body>
-  <h1>🧭 Solo Leveling: Stat HUD</h1>
+  <h1>🧭 Stat Menu: Solo Leveling</h1>
 
-  <div class="container">
+  <div class="hud-container">
     {% for key, value in stats.items() %}
       {% if key == "Current Rank" %}
         <div class="rank-box">
-          <span class="rank-title">🔥 {{ key }}</span>
-          <span class="rank-value">#{{ value }}</span>
+          <div class="rank-title">🔥 {{ key }}</div>
+          <div class="rank-value">#{{ value }}</div>
         </div>
       {% else %}
         <div class="stat-box">
@@ -127,9 +142,10 @@
   </div>
 
   <form method="POST">
-    <h2>✍️ Edit Stats (JSON Format)</h2>
-    <textarea name="stats_json">{{ stats_json }}</textarea><br>
-    <button type="submit">💾 Save Stats</button>
+    <h2 style="margin: 30px 0 15px;">✍️ Update Stats (JSON)</h2>
+    <textarea name="stats_json">{{ stats_json }}</textarea><br />
+    <button type="submit">💾 Save</button>
   </form>
 </body>
 </html>
+
