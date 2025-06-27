@@ -14,43 +14,45 @@
       background: linear-gradient(to right, #000000, #0d0d0d);
       color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      padding: 40px 20px;
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      margin-bottom: 30px;
-      background: linear-gradient(to right, #00ffff, #00ff88);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .hud-container {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-radius: 20px;
       padding: 30px;
-      width: 90%;
-      max-width: 800px;
+      width: 400px;
+      max-width: 95vw;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 25px;
+      background: linear-gradient(to right, #00ffff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
     }
 
     .rank-box {
-      background: rgba(255, 215, 0, 0.1);
+      background: rgba(255, 215, 0, 0.12);
       border: 2px solid gold;
-      padding: 25px;
-      border-radius: 15px;
-      margin-bottom: 25px;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
       text-align: center;
       box-shadow: 0 0 25px gold;
     }
 
     .rank-title {
-      font-size: 1.8rem;
+      font-size: 1.3rem;
       font-weight: bold;
       color: gold;
       text-transform: uppercase;
@@ -58,7 +60,7 @@
     }
 
     .rank-value {
-      font-size: 3.5rem;
+      font-size: 2.5rem;
       font-weight: bold;
       color: #fff;
     }
@@ -66,11 +68,11 @@
     .stat-box {
       background: rgba(255, 255, 255, 0.08);
       border-radius: 10px;
-      padding: 15px 20px;
-      margin: 12px 0;
+      padding: 12px 18px;
+      margin: 10px 0;
       display: flex;
       justify-content: space-between;
-      font-size: 1.2rem;
+      font-size: 1.05rem;
       border-left: 4px solid #00ffcc;
       box-shadow: 0 0 10px #00ffcc88;
     }
@@ -85,7 +87,7 @@
     }
 
     form {
-      margin-top: 40px;
+      margin-top: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -93,20 +95,20 @@
 
     textarea {
       width: 100%;
-      max-width: 800px;
-      height: 220px;
+      max-width: 400px;
+      height: 180px;
       background: #111;
       color: #0f0;
       border: 1px solid #333;
       border-radius: 10px;
-      padding: 15px;
+      padding: 12px;
       font-family: monospace;
-      font-size: 1em;
-      margin-bottom: 15px;
+      font-size: 0.95em;
+      margin-bottom: 10px;
     }
 
     button {
-      padding: 12px 25px;
+      padding: 10px 22px;
       font-size: 1em;
       background-color: #00ffcc;
       border: none;
@@ -123,9 +125,9 @@
   </style>
 </head>
 <body>
-  <h1>🧭 Stat Menu: Solo Leveling</h1>
-
   <div class="hud-container">
+    <h1>🧭 Status Interface</h1>
+
     {% for key, value in stats.items() %}
       {% if key == "Current Rank" %}
         <div class="rank-box">
@@ -139,13 +141,14 @@
         </div>
       {% endif %}
     {% endfor %}
-  </div>
 
-  <form method="POST">
-    <h2 style="margin: 30px 0 15px;">✍️ Update Stats (JSON)</h2>
-    <textarea name="stats_json">{{ stats_json }}</textarea><br />
-    <button type="submit">💾 Save</button>
-  </form>
+    <form method="POST">
+      <h3 style="margin: 25px 0 10px;">✍️ Update Stats</h3>
+      <textarea name="stats_json">{{ stats_json }}</textarea><br />
+      <button type="submit">💾 Save</button>
+    </form>
+  </div>
 </body>
 </html>
+
 
