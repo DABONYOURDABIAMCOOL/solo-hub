@@ -13,100 +13,124 @@
     }
 
     body {
-      background: #0d0d0d;
+      background: #0e0e0e;
       color: #fff;
       overflow-x: hidden;
     }
 
     .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 30px;
     }
 
     h1 {
       font-size: 48px;
-      color: #ffd700;
-      text-shadow: 0 0 10px #ffd700;
+      color: #00ffff;
+      text-shadow: 0 0 15px #00ffffaa;
       margin-bottom: 40px;
     }
 
-    .top-row {
+    .rank-row {
       display: flex;
-      justify-content: space-between;
       width: 100%;
-      max-width: 1200px;
+      justify-content: space-between;
+      margin-bottom: 30px;
     }
 
-    .stat-panel {
-      background: #1e1e1e;
-      padding: 20px;
+    .rank-box {
+      background: #222;
+      border: 2px solid #00ffffaa;
       border-radius: 8px;
-      width: 45%;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+      padding: 15px 20px;
+      font-size: 20px;
+      width: 48%;
+      text-align: center;
+      box-shadow: 0 0 10px #00ffff33;
+    }
+
+    .stats {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
 
     .stat {
+      background: #1b1b1b;
+      border: 1px solid #333;
+      padding: 15px 25px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #333;
-      padding: 10px 20px;
-      border-radius: 6px;
+      font-size: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px #000;
     }
 
-    .stat-name {
+    .controls button {
+      background: #444;
+      color: #fff;
+      border: none;
+      padding: 4px 10px;
+      cursor: pointer;
       font-size: 18px;
     }
 
     .controls {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .controls button {
-      background: #555;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
+    .xp-section {
+      width: 100%;
+      margin: 40px 0 20px;
+    }
+
+    .xp-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      margin-bottom: 5px;
     }
 
     .xp-bar {
-      background: #444;
       width: 100%;
-      height: 20px;
-      border-radius: 10px;
+      height: 30px;
+      background: #333;
+      border-radius: 15px;
       overflow: hidden;
-      margin-top: 10px;
+      box-shadow: 0 0 15px #00ffff55;
     }
 
-    .xp-bar-fill {
-      background: linear-gradient(to right, #00f260, #0575e6);
+    .xp-fill {
       height: 100%;
+      background: linear-gradient(90deg, #00ffff, #0055ff);
       width: 0%;
       transition: width 0.4s ease-in-out;
     }
 
-    .task-panel {
-      width: 45%;
-      background: #1e1e1e;
-      padding: 20px;
-      border-radius: 8px;
+    .tasks {
+      margin-top: 30px;
+      width: 100%;
     }
 
     .task {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #1b1b1b;
+      padding: 10px 15px;
       margin-bottom: 10px;
+      border-radius: 6px;
     }
 
-    .task input {
+    .task input[type="checkbox"] {
+      transform: scale(1.3);
       margin-right: 10px;
     }
 
@@ -115,157 +139,143 @@
     }
 
     .add-task {
-      margin-top: 20px;
       display: flex;
       gap: 10px;
+      margin-top: 20px;
     }
 
-    .rank-box {
-      margin-top: 30px;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 1200px;
-    }
-
-    .rank-box div {
-      background: #444;
-      padding: 20px;
-      border-radius: 8px;
-      flex: 1;
-      margin: 0 10px;
-      text-align: center;
-      font-size: 20px;
-    }
-
-    input[type="text"], input[type="number"] {
-      padding: 5px;
+    .add-task input {
+      padding: 8px;
       font-size: 16px;
-      width: 100%;
     }
 
+    .add-task button {
+      padding: 8px 15px;
+      background: #0055ff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>XP TRACKER</h1>
 
-    <div class="top-row">
-      <div class="stat-panel" id="statPanel">
-        <!-- Stats -->
-        <div class="stat"><span class="stat-name">Strength</span><div class="controls"><button onclick="changeStat('strength', -1)">-</button><span id="strength">1</span><button onclick="changeStat('strength', 1)">+</button></div></div>
-        <div class="stat"><span class="stat-name">Intelligence</span><div class="controls"><button onclick="changeStat('intelligence', -1)">-</button><span id="intelligence">1</span><button onclick="changeStat('intelligence', 1)">+</button></div></div>
-        <div class="stat"><span class="stat-name">Speed</span><div class="controls"><button onclick="changeStat('speed', -1)">-</button><span id="speed">1</span><button onclick="changeStat('speed', 1)">+</button></div></div>
-        <div class="stat"><span class="stat-name">Willpower</span><div class="controls"><button onclick="changeStat('willpower', -1)">-</button><span id="willpower">1</span><button onclick="changeStat('willpower', 1)">+</button></div></div>
-        <div class="stat"><span class="stat-name">Focus</span><div class="controls"><button onclick="changeStat('focus', -1)">-</button><span id="focus">1</span><button onclick="changeStat('focus', 1)">+</button></div></div>
+    <div class="rank-row">
+      <div class="rank-box" contenteditable="true">🏅 RANK: Rookie</div>
+      <div class="rank-box" contenteditable="true">🎖️ CLASS: Warrior</div>
+    </div>
 
-        <!-- XP & Level -->
-        <div class="stat"><span class="stat-name">Level</span><span id="levelValue">1</span></div>
-        <div class="stat"><span class="stat-name">XP</span><span id="xpValue">0</span></div>
-        <div class="xp-bar"><div class="xp-bar-fill" id="xpBarFill"></div></div>
+    <div class="stats">
+      <div class="stat"><span>Strength</span><div class="controls"><button onclick="changeStat('strength', -1)">-</button><span id="strength">1</span><button onclick="changeStat('strength', 1)">+</button></div></div>
+      <div class="stat"><span>Speed</span><div class="controls"><button onclick="changeStat('speed', -1)">-</button><span id="speed">1</span><button onclick="changeStat('speed', 1)">+</button></div></div>
+      <div class="stat"><span>Intelligence</span><div class="controls"><button onclick="changeStat('intelligence', -1)">-</button><span id="intelligence">1</span><button onclick="changeStat('intelligence', 1)">+</button></div></div>
+      <div class="stat"><span>Focus</span><div class="controls"><button onclick="changeStat('focus', -1)">-</button><span id="focus">1</span><button onclick="changeStat('focus', 1)">+</button></div></div>
+      <div class="stat"><span>Willpower</span><div class="controls"><button onclick="changeStat('willpower', -1)">-</button><span id="willpower">1</span><button onclick="changeStat('willpower', 1)">+</button></div></div>
+      <div class="stat"><span>Level</span><span id="level">1</span></div>
+      <div class="stat"><span>XP</span><span id="xpDisplay">0</span></div>
+    </div>
+
+    <div class="xp-section">
+      <div class="xp-labels">
+        <span>0 XP</span>
+        <span id="levelUpLabel">Next Level: 100 XP</span>
       </div>
-
-      <div class="task-panel">
-        <div id="taskList"></div>
-        <div class="add-task">
-          <input type="text" id="newTaskName" placeholder="Task Name">
-          <input type="number" id="newTaskXP" placeholder="XP">
-          <button onclick="addTask()">Add</button>
-        </div>
+      <div class="xp-bar">
+        <div class="xp-fill" id="xpFill"></div>
       </div>
     </div>
 
-    <div class="rank-box">
-      <div contenteditable="true">🏅 RANK: Rookie</div>
-      <div contenteditable="true">🎖️ CLASS: Fighter</div>
+    <div class="tasks" id="taskList"></div>
+
+    <div class="add-task">
+      <input type="text" id="taskName" placeholder="New Task">
+      <input type="number" id="taskXP" placeholder="XP">
+      <button onclick="addTask()">Add Task</button>
     </div>
   </div>
 
   <script>
-    let stats = {
+    const defaultStats = {
       strength: 1,
-      intelligence: 1,
       speed: 1,
+      intelligence: 1,
+      focus: 1,
       willpower: 1,
-      focus: 1
+      xp: 0,
+      level: 1
     };
 
-    let currentXP = 0;
-    let currentLevel = 1;
-    const xpPerLevel = 100;
+    let stats = JSON.parse(localStorage.getItem("xpStats")) || defaultStats;
+
+    const levelDisplay = document.getElementById("level");
+    const xpDisplay = document.getElementById("xpDisplay");
+    const xpFill = document.getElementById("xpFill");
+    const levelUpLabel = document.getElementById("levelUpLabel");
+
+    function updateAll() {
+      for (let stat in defaultStats) {
+        if (stat !== "xp" && stat !== "level") {
+          document.getElementById(stat).textContent = stats[stat];
+        }
+      }
+
+      levelDisplay.textContent = stats.level;
+      xpDisplay.textContent = stats.xp % 100;
+      xpFill.style.width = (stats.xp % 100) + "%";
+      levelUpLabel.textContent = `Next Level: ${((Math.floor(stats.xp / 100) + 1) * 100)} XP`;
+
+      localStorage.setItem("xpStats", JSON.stringify(stats));
+    }
 
     function changeStat(stat, change) {
       stats[stat] = Math.max(1, stats[stat] + change);
-      document.getElementById(stat).textContent = stats[stat];
-      saveStats();
-    }
-
-    function updateXPBar() {
-      const xpFill = document.getElementById("xpBarFill");
-      const xpValue = document.getElementById("xpValue");
-      const levelValue = document.getElementById("levelValue");
-
-      const xpPercent = (currentXP % xpPerLevel) / xpPerLevel * 100;
-      xpFill.style.width = xpPercent + "%";
-      xpValue.textContent = currentXP % xpPerLevel;
-      levelValue.textContent = currentLevel;
+      updateAll();
     }
 
     function addTask() {
-      const name = document.getElementById("newTaskName").value;
-      const xp = parseInt(document.getElementById("newTaskXP").value);
+      const name = document.getElementById("taskName").value;
+      const xp = parseInt(document.getElementById("taskXP").value);
       if (!name || isNaN(xp)) return;
 
       const taskList = document.getElementById("taskList");
 
-      const task = document.createElement("div");
-      task.classList.add("task");
-      task.innerHTML = \`
-        <input type="checkbox" class="task-checkbox" data-xp="\${xp}">
-        <span>\${name}</span>
-        <span>+\${xp} XP</span>
-      \`;
+      const taskDiv = document.createElement("div");
+      taskDiv.classList.add("task");
 
-      task.querySelector("input").addEventListener("change", function () {
-        if (this.checked) {
-          currentXP += xp;
-          if (currentXP >= currentLevel * xpPerLevel) {
-            currentLevel++;
-            alert("🆙 LEVEL UP!");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          stats.xp += xp;
+          if (stats.xp >= stats.level * 100) {
+            stats.level++;
+            alert("🆙 Level Up!");
           }
-          updateXPBar();
-          task.remove();
-          saveStats();
+          updateAll();
+          taskDiv.remove();
         }
       });
 
-      taskList.appendChild(task);
-      document.getElementById("newTaskName").value = "";
-      document.getElementById("newTaskXP").value = "";
+      const label = document.createElement("span");
+      label.textContent = name;
+
+      const xpLabel = document.createElement("span");
+      xpLabel.textContent = `+${xp} XP`;
+
+      taskDiv.appendChild(checkbox);
+      taskDiv.appendChild(label);
+      taskDiv.appendChild(xpLabel);
+
+      taskList.appendChild(taskDiv);
+
+      document.getElementById("taskName").value = "";
+      document.getElementById("taskXP").value = "";
     }
 
-    function saveStats() {
-      localStorage.setItem("xpStats", JSON.stringify({ stats, currentXP, currentLevel }));
-    }
-
-    function loadStats() {
-      const saved = JSON.parse(localStorage.getItem("xpStats"));
-      if (!saved) return;
-      stats = saved.stats;
-      currentXP = saved.currentXP;
-      currentLevel = saved.currentLevel;
-
-      for (let key in stats) {
-        document.getElementById(key).textContent = stats[key];
-      }
-      updateXPBar();
-    }
-
-    loadStats();
+    updateAll();
   </script>
 </body>
 </html>
-
-
-
-
