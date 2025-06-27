@@ -2,211 +2,306 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>XP TRACKER</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * {
+      font-family: 'Segoe UI', sans-serif;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-      color: white;
+      background: linear-gradient(145deg, #101010, #1f1f1f);
+      color: #fff;
       overflow-x: hidden;
     }
-    h1 {
-      font-size: 48px;
-      padding: 20px;
-      font-weight: 900;
-      text-align: left;
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px;
     }
+
+    #title {
+      font-size: 48px;
+      font-weight: bold;
+      color: cyan;
+    }
+
+    .box {
+      border: 3px solid gold;
+      padding: 10px 20px;
+      font-size: 20px;
+      background-color: #222;
+      color: gold;
+      border-radius: 8px;
+    }
+
     .container {
       display: flex;
       justify-content: space-between;
-      padding: 0 50px;
+      padding: 30px;
     }
-    .panel {
-      background: #1f1f1f;
-      padding: 20px;
-      border-radius: 12px;
-      width: 45%;
-      box-shadow: 0 0 10px #444;
-    }
-    .panel h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      border-bottom: 2px solid #555;
-      padding-bottom: 5px;
-    }
-    .stat {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 10px 0;
-      font-size: 18px;
-    }
-    .stat span {
+
+    .column {
       flex: 1;
     }
-    .stat button {
-      background: #555;
-      color: white;
-      border: none;
+
+    .stat-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #2b2b2b;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .stat-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .arrow-btn {
       padding: 5px 10px;
-      margin: 0 3px;
+      font-size: 18px;
+      background-color: #444;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
-      border-radius: 4px;
+      color: white;
     }
-    .rank-box {
-      background: gold;
-      color: black;
-      font-weight: bold;
-      padding: 12px;
-      position: absolute;
-      top: 20px;
-      right: 40px;
-      border-radius: 8px;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    .xp-bar-wrapper {
-      margin: 30px 50px 20px;
-      height: 20px;
-      background: #333;
+
+    .xp-bar-container {
+      background-color: #444;
+      height: 25px;
+      width: 100%;
       border-radius: 10px;
       overflow: hidden;
-    }
-    .xp-bar {
-      height: 100%;
-      background: linear-gradient(to right, #00ff88, #00ccff);
-      width: 0%;
-      transition: width 0.8s ease-in-out;
-    }
-    .task-list {
-      list-style: none;
       margin-top: 10px;
     }
-    .task {
-      background: #2a2a2a;
+
+    .xp-bar-fill {
+      background: linear-gradient(90deg, #00ffe0, #0055ff);
+      height: 100%;
+      width: 0%;
+      transition: width 0.6s ease;
+    }
+
+    .task-list {
+      background-color: #2e2e2e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .task-list h2 {
       margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 6px;
+    }
+
+    .task {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #3a3a3a;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
     }
-    .task input[type="number"] {
-      width: 60px;
+
+    .task input[type="text"], .task input[type="number"] {
+      background: transparent;
+      color: white;
+      border: none;
+      border-bottom: 1px solid #666;
+      width: 100px;
+    }
+
+    .task input[type="checkbox"] {
+      transform: scale(1.5);
       margin-left: 10px;
     }
-    .task input[type="text"] {
-      flex: 1;
-      margin-right: 10px;
-      background: transparent;
-      border: none;
-      color: white;
+
+    .task input[type="checkbox"]:checked + label {
+      text-decoration: line-through;
     }
-    .task button {
-      background: #ff5555;
-      color: white;
+
+    button {
+      padding: 10px 15px;
+      background: gold;
       border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    #add-task {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background: #00ccff;
-      color: white;
-      border: none;
-      cursor: pointer;
+      color: black;
       font-weight: bold;
       border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>XP TRACKER</h1>
-  <div class="rank-box" contenteditable="true">Rank: Rookie</div>
-  <div class="xp-bar-wrapper"><div class="xp-bar" id="xp-bar"></div></div>
-  <div class="container">
-    <div class="panel" id="stats-panel">
-      <h2>Stats</h2>
-      <div class="stat">Strength <span id="str">1</span> <button onclick="changeStat('str', -1)">-</button><button onclick="changeStat('str', 1)">+</button></div>
-      <div class="stat">Intelligence <span id="int">1</span> <button onclick="changeStat('int', -1)">-</button><button onclick="changeStat('int', 1)">+</button></div>
-      <div class="stat">Willpower <span id="will">1</span> <button onclick="changeStat('will', -1)">-</button><button onclick="changeStat('will', 1)">+</button></div>
-      <div class="stat">Speed <span id="spd">1</span> <button onclick="changeStat('spd', -1)">-</button><button onclick="changeStat('spd', 1)">+</button></div>
-      <div class="stat">Focus <span id="foc">1</span> <button onclick="changeStat('foc', -1)">-</button><button onclick="changeStat('foc', 1)">+</button></div>
-      <div class="stat">XP <span id="xp">0</span></div>
-      <div class="stat">Level <span id="lvl">0</span></div>
+  <header>
+    <div id="title">XP TRACKER</div>
+    <div>
+      <div class="box" contenteditable="true" id="rank">Rank: Rookie</div><br/>
+      <div class="box" contenteditable="true" id="title-class">Class: Beginner</div>
     </div>
-    <div class="panel" id="todo-panel">
-      <h2>To-Do List</h2>
-      <ul class="task-list" id="task-list"></ul>
-      <button id="add-task" onclick="addTask()">+ Add Task</button>
+  </header>
+
+  <div class="container">
+    <div class="column" id="left">
+      <div class="stat-box">Strength
+        <div class="stat-controls">
+          <button class="arrow-btn" onclick="updateStat('strength', -1)">-</button>
+          <div id="strength">1</div>
+          <button class="arrow-btn" onclick="updateStat('strength', 1)">+</button>
+        </div>
+      </div>
+      <div class="stat-box">Intelligence
+        <div class="stat-controls">
+          <button class="arrow-btn" onclick="updateStat('intelligence', -1)">-</button>
+          <div id="intelligence">1</div>
+          <button class="arrow-btn" onclick="updateStat('intelligence', 1)">+</button>
+        </div>
+      </div>
+      <div class="stat-box">Willpower
+        <div class="stat-controls">
+          <button class="arrow-btn" onclick="updateStat('willpower', -1)">-</button>
+          <div id="willpower">1</div>
+          <button class="arrow-btn" onclick="updateStat('willpower', 1)">+</button>
+        </div>
+      </div>
+      <div class="stat-box">Speed
+        <div class="stat-controls">
+          <button class="arrow-btn" onclick="updateStat('speed', -1)">-</button>
+          <div id="speed">1</div>
+          <button class="arrow-btn" onclick="updateStat('speed', 1)">+</button>
+        </div>
+      </div>
+      <div class="stat-box">Focus
+        <div class="stat-controls">
+          <button class="arrow-btn" onclick="updateStat('focus', -1)">-</button>
+          <div id="focus">1</div>
+          <button class="arrow-btn" onclick="updateStat('focus', 1)">+</button>
+        </div>
+      </div>
+
+      <div class="stat-box">XP
+        <div class="stat-controls">
+          <div id="xp">0</div>
+        </div>
+      </div>
+      <div class="xp-bar-container">
+        <div class="xp-bar-fill" id="xpBar"></div>
+      </div>
+      <div class="stat-box">Level
+        <div id="level">0</div>
+      </div>
+    </div>
+
+    <div class="column" id="right">
+      <div class="task-list">
+        <h2>Daily Tasks</h2>
+        <div id="tasks"></div>
+        <button onclick="addTask()">+ Add Task</button>
+      </div>
     </div>
   </div>
 
   <script>
-    let stats = {
-      str: 1, int: 1, will: 1, spd: 1, foc: 1, xp: 0, lvl: 0
-    };
+    const stats = ["strength", "intelligence", "willpower", "speed", "focus"];
+    let xp = 0;
+    let level = 0;
 
-    function changeStat(stat, val) {
-      stats[stat] = Math.max(1, stats[stat] + val);
-      document.getElementById(stat).textContent = stats[stat];
+    function updateStat(stat, change) {
+      let val = parseInt(document.getElementById(stat).innerText);
+      val = Math.max(0, val + change);
+      document.getElementById(stat).innerText = val;
+      saveStats();
     }
 
-    function updateXPBar() {
-      let percent = (stats.xp / 100) * 100;
-      document.getElementById("xp-bar").style.width = percent + "%";
+    function addTask(name = "", xpValue = 0) {
+      const taskDiv = document.createElement("div");
+      taskDiv.className = "task";
+
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.placeholder = "Task";
+      nameInput.value = name;
+
+      const xpInput = document.createElement("input");
+      xpInput.type = "number";
+      xpInput.placeholder = "XP";
+      xpInput.value = xpValue;
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.onclick = () => {
+        gainXP(parseInt(xpInput.value || 0));
+        taskDiv.remove();
+        saveStats();
+      };
+
+      taskDiv.append(nameInput, xpInput, checkbox);
+      document.getElementById("tasks").append(taskDiv);
     }
 
     function gainXP(amount) {
-      stats.xp += amount;
-      while (stats.xp >= 100) {
-        stats.xp -= 100;
-        stats.lvl += 1;
-        document.getElementById("lvl").textContent = stats.lvl;
-        document.querySelector(".rank-box").textContent = "Rank: " + getRank(stats.lvl);
-        alert("🎉 Level Up! You are now Level " + stats.lvl);
+      xp += amount;
+      while (xp >= 100) {
+        xp -= 100;
+        level++;
       }
-      document.getElementById("xp").textContent = stats.xp;
       updateXPBar();
+      document.getElementById("xp").innerText = xp;
+      document.getElementById("level").innerText = level;
+      saveStats();
     }
 
-    function getRank(lvl) {
-      const ranks = ["Rookie", "Trainee", "Contender", "Elite", "Champion", "Legend", "Mythic", "Ascended", "Omni", "Transcendent", "Godspeed"];
-      return ranks[Math.floor(lvl / 10)] || "Beyond Human";
+    function updateXPBar() {
+      document.getElementById("xpBar").style.width = xp + "%";
     }
 
-    function addTask() {
-      let taskList = document.getElementById("task-list");
-      let li = document.createElement("li");
-      li.className = "task";
-      li.innerHTML = `
-        <input type="text" placeholder="Task" />
-        <input type="number" placeholder="XP" />
-        <button onclick="completeTask(this)">✓</button>
-      `;
-      taskList.appendChild(li);
+    function saveStats() {
+      const data = {
+        stats: {},
+        xp, level,
+        rank: document.getElementById("rank").innerText,
+        classTitle: document.getElementById("title-class").innerText
+      };
+      stats.forEach(s => data.stats[s] = parseInt(document.getElementById(s).innerText));
+      localStorage.setItem("xpData", JSON.stringify(data));
     }
 
-    function completeTask(btn) {
-      let task = btn.parentElement;
-      let xp = parseInt(task.querySelector("input[type='number']").value) || 0;
-      gainXP(xp);
-      task.remove();
-    }
-
-    // Optional daily task reset (resets tasks every day)
-    window.onload = function() {
-      const savedDay = localStorage.getItem("lastDay");
-      const today = new Date().getDate();
-      if (savedDay != today) {
-        document.getElementById("task-list").innerHTML = "";
-        localStorage.setItem("lastDay", today);
+    function loadStats() {
+      const saved = JSON.parse(localStorage.getItem("xpData") || "{}");
+      if (saved.stats) {
+        stats.forEach(s => {
+          if (saved.stats[s] !== undefined) {
+            document.getElementById(s).innerText = saved.stats[s];
+          }
+        });
       }
+      if (saved.xp !== undefined) {
+        xp = saved.xp;
+        document.getElementById("xp").innerText = xp;
+        updateXPBar();
+      }
+      if (saved.level !== undefined) {
+        level = saved.level;
+        document.getElementById("level").innerText = level;
+      }
+      if (saved.rank) document.getElementById("rank").innerText = saved.rank;
+      if (saved.classTitle) document.getElementById("title-class").innerText = saved.classTitle;
     }
+
+    loadStats();
   </script>
 </body>
 </html>
+
 
 
