@@ -6,8 +6,8 @@
   <style>
     * {
       box-sizing: border-box;
-      padding: 0;
       margin: 0;
+      padding: 0;
     }
 
     body {
@@ -28,7 +28,7 @@
     }
 
     h1 {
-      font-size: 3.5rem;
+      font-size: 4rem;
       color: #00ffaa;
       text-shadow: 0 0 20px #00ffaa88;
       margin-bottom: 30px;
@@ -37,9 +37,9 @@
     .xp-bar-container {
       width: 80%;
       max-width: 700px;
-      height: 24px;
+      height: 26px;
       background: #222;
-      border-radius: 12px;
+      border-radius: 13px;
       overflow: hidden;
       box-shadow: 0 0 12px #00ffccaa;
       margin-bottom: 50px;
@@ -48,38 +48,45 @@
 
     .xp-bar {
       height: 100%;
-      width: 60%; /* ← EDIT XP HERE */
+      width: 0;
       background: linear-gradient(to right, #00ffaa, #00ffcc);
-      transition: width 1.2s ease-in-out;
       box-shadow: 0 0 25px #00ffccaa;
+      transition: width 1s ease-in-out;
     }
 
     .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 20px;
       width: 90%;
-      max-width: 1000px;
+      max-width: 1100px;
       margin-bottom: 100px;
     }
 
     .stat-card {
       background: rgba(255, 255, 255, 0.05);
       border-left: 4px solid #00ffcc;
-      padding: 20px;
-      border-radius: 15px;
+      padding: 20px 30px;
+      border-radius: 12px;
+      min-width: 400px;
+      max-width: 500px;
+      width: 100%;
       text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       box-shadow: 0 0 15px #00ffcc33;
       transition: transform 0.3s ease;
     }
 
     .stat-card:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
       box-shadow: 0 0 25px #00ffcc88;
     }
 
     .stat-name {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #ccc;
     }
@@ -136,15 +143,15 @@
 
     @media screen and (max-width: 500px) {
       h1 {
-        font-size: 2.4rem;
+        font-size: 2.5rem;
+      }
+
+      .stat-card {
+        min-width: 100%;
       }
 
       .stat-value {
-        font-size: 1.5rem;
-      }
-
-      .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        font-size: 1.4rem;
       }
     }
   </style>
@@ -157,9 +164,9 @@
       <div class="xp-bar" id="xp-bar"></div>
     </div>
 
-    <div class="stats-grid">
+    <div class="stats-grid" id="stats-grid">
       {% for key, value in stats.items() %}
-        <div class="stat-card">
+        <div class="stat-card" data-key="{{ key }}" data-value="{{ value }}">
           <div class="stat-name">{{ key }}</div>
           <div class="stat-value">{{ value }}</div>
         </div>
@@ -176,13 +183,21 @@
   </div>
 
   <script>
-    // XP bar animation
+    // Auto set XP bar based on "XP" stat
     window.onload = () => {
+      const statCards = document.querySelectorAll(".stat-card");
       const xpBar = document.getElementById("xp-bar");
-      xpBar.style.width = xpBar.style.width;
+
+      statCards.forEach(card => {
+        const key = card.getAttribute("data-key");
+        const value = card.getAttribute("data-value");
+
+        if (key.toLowerCase() === "xp") {
+          const percent = parseInt(value.replace("%", "").trim());
+          xpBar.style.width = percent + "%";
+        }
+      });
     };
   </script>
 </body>
 </html>
-
-
