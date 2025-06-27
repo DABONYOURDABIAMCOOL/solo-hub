@@ -28,4 +28,194 @@
       transform: scale(0.9);
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 30
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 420px;
+      max-width: 95vw;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 25px;
+      background: linear-gradient(to right, #00ffff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      animation: glowIn 1.2s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes glowIn {
+      0% {
+        opacity: 0;
+        letter-spacing: -0.05em;
+      }
+      100% {
+        opacity: 1;
+        letter-spacing: 0;
+      }
+    }
+
+    .xp-bar-container {
+      width: 100%;
+      height: 18px;
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px #00ffaaaa;
+      margin-bottom: 25px;
+      border: 1px solid #00ffaa55;
+    }
+
+    .xp-bar {
+      height: 100%;
+      width: 65%; /* CHANGE XP % HERE */
+      background: linear-gradient(to right, #00ffaa, #00ffcc);
+      transition: width 1.2s ease-in-out;
+      box-shadow: 0 0 20px #00ffccaa;
+    }
+
+    .rank-box {
+      background: rgba(255, 215, 0, 0.12);
+      border: 2px solid gold;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      text-align: center;
+      box-shadow: 0 0 25px gold;
+    }
+
+    .rank-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: gold;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .rank-value {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.05rem;
+      border-left: 4px solid #00ffcc;
+      box-shadow: 0 0 10px #00ffcc88;
+      opacity: 0;
+    }
+
+    .stat-name {
+      color: #ccc;
+      font-weight: bold;
+    }
+
+    .stat-value {
+      color: #fff;
+    }
+
+    form {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 400px;
+      height: 180px;
+      background: #111;
+      color: #0f0;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 12px;
+      font-family: monospace;
+      font-size: 0.95em;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 22px;
+      font-size: 1em;
+      background-color: #00ffcc;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #000;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffcc88;
+    }
+
+    button:hover {
+      background-color: #00ffaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="hud-container">
+    <h1 id="title">🧭 Status Interface</h1>
+
+    <div class="xp-bar-container">
+      <div class="xp-bar" id="xp-bar"></div>
+    </div>
+
+    {% for key, value in stats.items() %}
+      {% if key == "Current Rank" %}
+        <div class="rank-box">
+          <div class="rank-title">🔥 {{ key }}</div>
+          <div class="rank-value">#{{ value }}</div>
+        </div>
+      {% else %}
+        <div class="stat-box typewriter">
+          <span class="stat-name">{{ key }}</span>
+          <span class="stat-value">{{ value }}</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <form method="POST">
+      <h3 style="margin: 25px 0 10px;">✍️ Update Stats</h3>
+      <textarea name="stats_json">{{ stats_json }}</textarea><br />
+      <button type="submit">💾 Save</button>
+    </form>
+  </div>
+
+  <script>
+    // Typewriter effect for each stat row
+    const stats = document.querySelectorAll('.typewriter');
+    stats.forEach((el, i) => {
+      setTimeout(() => {
+        el.style.opacity = 1;
+      }, 300 + i * 150);
+    });
+
+    // Optional XP animation on load
+    window.onload = () => {
+      const xpBar = document.getElementById("xp-bar");
+      xpBar.style.width = xpBar.style.width;
+    };
+  </script>
+</body>
+</html>
+
